@@ -71,7 +71,7 @@ class Instance:
         return distances, assignements
     
 
-    def save_dzn(self):
+    def save_dzn(self, file_name=None, file_path=None):
         distaces_list = self.distances
         distaces_str_arr = [", ".join([str(int(i)) for i in distaces_list[j]]) for j in range(len(distaces_list))]
         distaces_str = '\n                      | '.join(distaces_str_arr)
@@ -82,5 +82,11 @@ size = {self.size};
 dist = [|{distaces_str}|]
 % optimal assignement = {self.optimal_paths}
         '''
-        file = open(f"instance_{self.m}_{self.n}_{datetime.today().isoformat()}.dzn", "x")
+        name = f"instance_{self.m}_{self.n}_{datetime.today().isoformat()}"
+        if not file_name is None:
+            name = file_name
+        path = "."
+        if not file_path is None:
+            path = file_path
+        file = open(f"{path}/{name}.dzn", "x")
         file.write(instance)
